@@ -2133,6 +2133,12 @@ Microsoft.FSharp.Core.FSharpRef`1[T]: T get_contents()
 Microsoft.FSharp.Core.FSharpRef`1[T]: Void .ctor(T)
 Microsoft.FSharp.Core.FSharpRef`1[T]: Void set_Value(T)
 Microsoft.FSharp.Core.FSharpRef`1[T]: Void set_contents(T)
+Microsoft.FSharp.Core.FSharpResult`2+Error[T1,T2]: Boolean Equals(Microsoft.FSharp.Core.FSharpResult`2[T1,T2])
+Microsoft.FSharp.Core.FSharpResult`2+Error[T1,T2]: Boolean Equals(System.Object)
+Microsoft.FSharp.Core.FSharpResult`2+Error[T1,T2]: Boolean Equals(System.Object, System.Collections.IEqualityComparer)
+Microsoft.FSharp.Core.FSharpResult`2+Error[T1,T2]: Boolean IsError
+Microsoft.FSharp.Core.FSharpResult`2+Error[T1,T2]: Boolean IsSuccess
+Microsoft.FSharp.Core.FSharpResult`2+Error[T1,T2]: Boolean get_IsError()
 Microsoft.FSharp.Core.FSharpTypeFunc: Boolean Equals(System.Object)
 Microsoft.FSharp.Core.FSharpTypeFunc: Int32 GetHashCode()
 Microsoft.FSharp.Core.FSharpTypeFunc: System.Object Specialize[T]()
