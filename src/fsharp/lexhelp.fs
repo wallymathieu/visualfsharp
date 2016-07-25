@@ -291,7 +291,7 @@ module Keywords =
           "parallel"; "params";  "process"; "protected"; "pure"; 
           "recursive"; 
           "sealed"; 
-          "trait";  "tailcall";
+          "tailcall";
           "virtual"; "volatile"; ]
 
     let private unreserveWords = 
