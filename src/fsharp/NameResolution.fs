@@ -2616,8 +2616,17 @@ let ResolveLongIdentAsExprAndComputeRange (sink:TcResultsSink) (ncenv:NameResolv
     let item,rest = ResolveExprLongIdent sink ncenv wholem ad nenv typeNameResInfo lid
     let itemRange = ComputeItemRange wholem lid rest
     
+    // TODO: hack to make trait methods appear
+    let staticOnly =
+        match item with
+        | Item.MethodGroup(_, x::_, _) ->
+            match x.EnclosingType with
+            | TType.TType_app(tycon, _) -> not (TyconRefHasTraitAttribute ncenv.g wholem tycon)
+            | _ -> true
+        | _ -> true
+
     // Record the precise resolution of the field for intellisense
-    let item = FilterMethodGroups ncenv itemRange item true
+    let item = FilterMethodGroups ncenv itemRange item staticOnly
     // Fake idents e.g. 'Microsoft.FSharp.Core.None' have identical ranges for each part
     let isFakeIdents =
         match lid with
