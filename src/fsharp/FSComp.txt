@@ -1274,3 +1274,4 @@ estApplyStaticArgumentsForMethodNotImplemented,"A type provider implemented GetS
 3197,etMissingStaticArgumentsToMethod,"This provided method requires static parameters"
 3209,tcNoSolutionToTrait,"No solution to trait '%s'"
 3210,tcNoSolutionToTrait2,"No solution to trait '%s' (no witness environment)"
+3211,tcMultipleSolutionsToTrait,"Multiple solutions to trait '%s'; using '%s' (possibilities are %s)"
