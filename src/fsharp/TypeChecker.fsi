@@ -15,6 +15,7 @@ open Microsoft.FSharp.Compiler.Tast
 open Microsoft.FSharp.Compiler.Tastops
 open Microsoft.FSharp.Compiler.Lib
 open Microsoft.FSharp.Compiler.Infos
+open Microsoft.FSharp.Compiler.NameResolution
 open Microsoft.FSharp.Compiler.Import
 open Microsoft.FSharp.Compiler.TcGlobals
 
@@ -109,4 +110,6 @@ val TcFieldInit : range -> ILFieldInit -> Tast.Const
 
 val IsSecurityAttribute : TcGlobals -> ImportMap -> Dictionary<Stamp,bool> -> Attrib -> range -> bool
 val IsSecurityCriticalAttribute : TcGlobals -> Attrib -> bool
-val LightweightTcValForUsingInBuildMethodCall : g : TcGlobals -> vref:ValRef -> vrefFlags : ValUseFlag -> vrefTypeInst : TTypes -> m : range -> Expr * TType
+val LightweightTcValForUsingInBuildMethodCall : g : TcGlobals -> WitnessEnv -> vref:ValRef -> vrefFlags : ValUseFlag -> vrefTypeInst : TTypes -> m : range -> Expr * TType
+
+val MakeWitnessEnv : TcGlobals -> NameResolutionEnv -> WitnessEnv

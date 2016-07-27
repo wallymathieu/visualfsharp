@@ -795,7 +795,7 @@ module private PrintTypes =
     and private layoutConstraintWithInfo denv env (tp,tpc) =
         let longConstraintPrefix l = layoutTyparRefWithInfo denv env tp ^^ wordL ":" ^^ l
         match tpc with 
-        | TyparConstraint.CoercesTo(tpct,_) -> 
+        | TyparConstraint.CoercesTo(tpct,_,_) -> 
             [layoutTyparRefWithInfo denv env tp ^^ wordL ":>" --- layoutTypeWithInfo denv env tpct]
         | TyparConstraint.Associated(tpct,_) -> 
             [layoutTyparRefWithInfo denv env tp ^^ wordL "implies" --- layoutTypeWithInfo denv env tpct]

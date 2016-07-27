@@ -411,3 +411,7 @@ type ResolveCompletionTargets =
 
 /// Resolve a (possibly incomplete) long identifier to a set of possible resolutions, qualified by type.
 val ResolveCompletionsInType       : NameResolver -> NameResolutionEnv -> ResolveCompletionTargets -> Range.range -> Infos.AccessorDomain -> bool -> TType -> Item list
+
+type WitnessEnv =
+  | NoWitnessEnv
+  | WitnessEnv  of NameResolutionEnv * (range -> Typars -> TTypes)

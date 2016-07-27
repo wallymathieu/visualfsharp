@@ -1921,7 +1921,7 @@ let main2(Args(tcConfig, tcImports, frameworkTcImports: TcImports, tcGlobals, er
         match tcConfig.metadataVersion with
         | Some(v) -> v
         | _ -> match (frameworkTcImports.DllTable.TryFind tcConfig.primaryAssembly.Name) with | Some(ib) -> ib.RawMetadata.TryGetRawILModule().Value.MetadataVersion | _ -> ""
-    let optimizedImpls,optimizationData,_ = ApplyAllOptimizations (tcConfig, tcGlobals, (LightweightTcValForUsingInBuildMethodCall tcGlobals), outfile, importMap, false, optEnv0, generatedCcu, typedAssembly)
+    let optimizedImpls,optimizationData,_ = ApplyAllOptimizations (tcConfig, tcGlobals, (LightweightTcValForUsingInBuildMethodCall tcGlobals NameResolution.NoWitnessEnv), outfile, importMap, false, optEnv0, generatedCcu, typedAssembly)
 
     AbortOnError(errorLogger,tcConfig,exiter)
         
@@ -1961,7 +1961,7 @@ let main2b(Args(tcConfig: TcConfig, tcImports, tcGlobals, errorLogger, generated
 
     ReportTime tcConfig "TAST -> ILX";
     use unwindBuildPhase = PushThreadBuildPhaseUntilUnwind  (BuildPhase.IlxGen)
-    let ilxGenerator = CreateIlxAssemblyGenerator (tcConfig,tcImports,tcGlobals, (LightweightTcValForUsingInBuildMethodCall tcGlobals), generatedCcu)
+    let ilxGenerator = CreateIlxAssemblyGenerator (tcConfig,tcImports,tcGlobals, (LightweightTcValForUsingInBuildMethodCall tcGlobals NameResolution.NoWitnessEnv), generatedCcu)
 
     // Check if System.SerializableAttribute exists in mscorlib.dll, 
     // so that make sure the compiler only emits "serializable" bit into IL metadata when it is available.

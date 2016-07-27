@@ -817,7 +817,7 @@ type internal FsiDynamicCompiler
         let importMap = tcImports.GetImportMap()
 
         // optimize: note we collect the incremental optimization environment 
-        let optimizedImpls, _optData, optEnv = ApplyAllOptimizations (tcConfig, tcGlobals, (LightweightTcValForUsingInBuildMethodCall tcGlobals), outfile, importMap, isIncrementalFragment, optEnv, tcState.Ccu, declaredImpls)
+        let optimizedImpls, _optData, optEnv = ApplyAllOptimizations (tcConfig, tcGlobals, (LightweightTcValForUsingInBuildMethodCall tcGlobals (TypeChecker.MakeWitnessEnv tcGlobals tcEnvAtEndOfLastInput.NameEnv)), outfile, importMap, isIncrementalFragment, optEnv, tcState.Ccu, declaredImpls)
         errorLogger.AbortOnError();
             
         let fragName = textOfLid prefixPath 
@@ -1085,7 +1085,7 @@ type internal FsiDynamicCompiler
 
         let tcState = GetInitialTcState (rangeStdin, ccuName, tcConfig, tcGlobals, tcImports, niceNameGen, tcEnv)
 
-        let ilxGenerator = CreateIlxAssemblyGenerator(tcConfig,tcImports,tcGlobals, (LightweightTcValForUsingInBuildMethodCall tcGlobals), tcState.Ccu )
+        let ilxGenerator = CreateIlxAssemblyGenerator(tcConfig,tcImports,tcGlobals, (LightweightTcValForUsingInBuildMethodCall tcGlobals (TypeChecker.MakeWitnessEnv tcGlobals tcEnv.NameEnv)), tcState.Ccu )
         {optEnv    = optEnv0
          emEnv     = emEnv
          tcGlobals = tcGlobals
@@ -1119,7 +1119,7 @@ type internal FsiIntellisenseProvider(tcGlobals, tcImports: TcImports) =
         let ncenv = new NameResolution.NameResolver(tcGlobals,amap,infoReader,NameResolution.FakeInstantiationGenerator)
         // Note: for the accessor domain we should use (AccessRightsOfEnv tcState.TcEnvFromImpls)
         let ad = Infos.AccessibleFromSomeFSharpCode
-        let nItems = NameResolution.ResolvePartialLongIdent ncenv tcState.TcEnvFromImpls.NameEnv (ConstraintSolver.IsApplicableMethApprox tcGlobals amap rangeStdin) rangeStdin ad lid false
+        let nItems = NameResolution.ResolvePartialLongIdent ncenv tcState.TcEnvFromImpls.NameEnv (ConstraintSolver.IsApplicableMethApprox tcGlobals amap rangeStdin (MakeWitnessEnv tcGlobals tcState.TcEnvFromImpls.NameEnv)) rangeStdin ad lid false
         let names  = nItems |> List.map (fun d -> d.DisplayName) 
         let names  = names |> List.filter (fun (name:string) -> name.StartsWith(stem,StringComparison.Ordinal)) 
         names

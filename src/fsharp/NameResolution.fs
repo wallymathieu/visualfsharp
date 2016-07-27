@@ -3395,3 +3395,7 @@ and ResolvePartialLongIdentToClassOrRecdFieldsImpl (ncenv: NameResolver) (nenv: 
                 |> List.map Item.RecdField
             | _-> []
         modsOrNs @ qualifiedFields
+
+type WitnessEnv =
+  | NoWitnessEnv
+  | WitnessEnv  of NameResolutionEnv * (range -> Typars -> TTypes)
